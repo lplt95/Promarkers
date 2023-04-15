@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:android="clr-namespace:Microsoft.Maui.Controls.PlatformConfiguration.AndroidSpecific;assembly=Microsoft.Maui.Controls"
+             xmlns:data="clr-namespace:Promarkers.Models"
+             xmlns:enums="clr-namespace:Promarkers.Models.Enums"
+             xmlns:templates="clr-namespace:Promarkers.Models.Templates"
+             x:Class="Promarkers.BrowsePage"
+             Title="Promarkery">
+    <ContentPage.Resources>
+        <!--DATA TEMPLATE SECTION-->
+        <DataTemplate x:Key="OwnedMarker">
+            <ViewCell>
+                <Grid Style="{StaticResource outerGridStyle}" VerticalOptions="Center">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="110"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="110"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <BoxView Grid.Row="0" Grid.Column="0" Color="{Binding Color}"/>
+                    <Grid Grid.Row="0" Grid.Column="1" VerticalOptions="Center" Margin="5,0,0,0">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="20"/>
+                            <RowDefinition Height="20"/>
+                            <RowDefinition Height="20"/>
+                            <RowDefinition Height="20"/>
+                            <RowDefinition Height="20"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Label Grid.Row="0" Grid.Column="0" Text="Nazwa koloru:" Style="{StaticResource titleLabelStyle}"/>
+                        <Label Grid.Row="1" Grid.Column="0" Text="Kod koloru:" Style="{StaticResource titleLabelStyle}"/>
+                        <Label Grid.Row="2" Grid.Column="0" Text="Typ markera:" Style="{StaticResource titleLabelStyle}"/>
+                        <Label Grid.Row="3" Grid.Column="0" Text="Unikalny:" Style="{StaticResource titleLabelStyle}"/>
+                        <Label Grid.Row="4" Grid.Column="0" Text="Posiadasz:" Style="{StaticResource titleLabelStyle}"/>
+                        <Label Grid.Row="0" Grid.Column="1" Text="{Binding ColorName}"/>
+                        <Label Grid.Row="1" Grid.Column="1" Text="{Binding ColorCode}"/>
+                        <Label Grid.Row="2" Grid.Column="1" Text="{Binding MarkerType}"/>
+                        <Label Grid.Row="3" Grid.Column="1" Text="{Binding Unique}"/>
+                        <Label Grid.Row="4" Grid.Column="1" Text="{Binding Owned}"/>
+                    </Grid>
+                </Grid>
+            </ViewCell>
+        </DataTemplate>
+        <DataTemplate x:Key="NotOwnedMarker">
+            <ViewCell>
+                <Grid Style="{StaticResource outerGridStyle}" VerticalOptions="Center" BackgroundColor="#d6d5d1">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="110"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="110"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <BoxView Grid.Row="0" Grid.Column="0" Color="{Binding Color}"/>
+                    <Grid Grid.Row="0" Grid.Column="1" VerticalOptions="Center" Margin="5,0,0,0">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="20"/>
+                            <RowDefinition Height="20"/>
+                            <RowDefinition Height="20"/>
+                            <RowDefinition Height="20"/>
+                            <RowDefinition Height="20"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Label Grid.Row="0" Grid.Column="0" Text="Nazwa koloru:" Style="{StaticResource titleLabelStyle}"/>
+                        <Label Grid.Row="1" Grid.Column="0" Text="Kod koloru:" Style="{StaticResource titleLabelStyle}"/>
+                        <Label Grid.Row="2" Grid.Column="0" Text="Typ markera:" Style="{StaticResource titleLabelStyle}"/>
+                        <Label Grid.Row="3" Grid.Column="0" Text="Unikalny:" Style="{StaticResource titleLabelStyle}"/>
+                        <Label Grid.Row="4" Grid.Column="0" Text="Posiadasz:" Style="{StaticResource titleLabelStyle}"/>
+                        <Label Grid.Row="0" Grid.Column="1" Text="{Binding ColorName}"/>
+                        <Label Grid.Row="1" Grid.Column="1" Text="{Binding ColorCode}"/>
+                        <Label Grid.Row="2" Grid.Column="1" Text="{Binding MarkerType}"/>
+                        <Label Grid.Row="3" Grid.Column="1" Text="{Binding Unique}"/>
+                        <Label Grid.Row="4" Grid.Column="1" Text="{Binding Owned}"/>
+                    </Grid>
+                </Grid>
+            </ViewCell>
+        </DataTemplate>
+        <!--END DATA TEMPLATE SECTION-->
+        <templates:PromarkerDataTemplateSelector x:Key="MarkerSelector" OwnedMarker="{StaticResource OwnedMarker}" NotOwnedMarker="{StaticResource NotOwnedMarker}"/>
+        <!--STYLES SECTION-->
+        <Style TargetType="Label" x:Key="titleLabelStyle">
+            <Setter Property="FontAttributes" Value="Bold"/>
+            <Setter Property="VerticalTextAlignment" Value="Start"/>
+        </Style>
+        <Style TargetType="Label" x:Key="headerLabelStyle">
+            <Setter Property="FontAttributes" Value="Bold"/>
+            <Setter Property="FontSize" Value="Subtitle"/>
+            <Setter Property="Margin" Value="5,0,0,0"/>
+        </Style>
+        <Style TargetType="ListView">
+            <Setter Property="SeparatorColor" Value="#111"/>
+            <Setter Property="RowHeight" Value="125"/>
+            <Setter Property="VerticalScrollBarVisibility" Value="Never"/>
+            <Setter Property="HorizontalScrollBarVisibility" Value="Never"/>
+            <Setter Property="ItemTemplate" Value="{StaticResource MarkerSelector}"/>
+        </Style>
+        <Style TargetType="Grid" x:Key="outerGridStyle">
+            <Setter Property="Margin" Value="5,0,5,5"/>
+            <Setter Property="VerticalOptions" Value="Center"/>
+        </Style>
+        <Style TargetType="Grid" x:Key="innerGridStyle">
+            <Setter Property="Margin" Value="5,0,0,0"/>
+            <Setter Property="VerticalOptions" Value="Center"/>
+        </Style>
+        <Style TargetType="BoxView">
+            <Setter Property="MaximumWidthRequest" Value="100"/>
+            <Setter Property="MaximumHeightRequest" Value="100"/>
+            <Setter Property="CornerRadius" Value="20"/>
+        </Style>
+        <Style TargetType="Picker">
+            <Setter Property="WidthRequest" Value="150"/>
+            <Setter Property="HorizontalOptions" Value="Start"/>
+        </Style>
+        <Style TargetType="Switch">
+            <Setter Property="HorizontalOptions" Value="Start"/>
+            <Setter Property="IsToggled" Value="False"/>
+            <Setter Property="OnColor" Value="#675D50"/>
+            <Setter Property="ThumbColor" Value="#ABC4AA"/>
+        </Style>
+        <!--END STYLES SECTION-->
+    </ContentPage.Resources>
+    <StackLayout>
+        <Grid ColumnSpacing="5" Margin="5,0,5,5">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Label Grid.Row="0" Grid.Column="0" Text="Filtruj po typie" Style="{StaticResource headerLabelStyle}"/>
+            <Label Grid.Row="0" Grid.Column="1" Text="Filtruj po kolorach" Style="{StaticResource headerLabelStyle}"/>
+            <Label Grid.Row="2" Grid.Column="0" Text="Wyszukaj" Style="{StaticResource headerLabelStyle}"/>
+            <Label Grid.Row="2" Grid.Column="1" Text="Tylko posiadane" Style="{StaticResource headerLabelStyle}"/>
+            <Picker Grid.Row="1" Grid.Column="0" x:Name="typePicker"/>
+            <Picker Grid.Row="1" Grid.Column="1" x:Name="colorPicker"/>
+            <Entry Grid.Row="3" Grid.Column="0" x:Name="globalFilter" TextChanged="globalFilter_TextChanged"/>
+            <Switch Grid.Row="3" Grid.Column="1" x:Name="activeOnlySwitch" IsToggled="False" Toggled="Switch_Toggled"/>
+        </Grid>
+        <ListView x:Name="lvBrowsePage" android:ListView.IsFastScrollEnabled="True" ItemSelected="lvBrowsePage_ItemSelected" CachingStrategy="RetainElement" VerticalScrollBarVisibility="Never"/>
+    </StackLayout>
+</ContentPage>

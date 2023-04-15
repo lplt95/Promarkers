@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Promarkers.MainPage"
+             Title="Baza promarkerów">
+    <ContentPage.Resources>
+        <Style x:Key="buttonType1" TargetType="Button">
+            <Setter Property="BackgroundColor" Value="#ABC4AA" />
+            <Setter Property="TextColor" Value="#111" />
+            <Setter Property="FontAttributes" Value="Bold" />
+        </Style>
+
+        <Style x:Key="buttonType2" TargetType="Button">
+            <Setter Property="BackgroundColor" Value="#675D50" />
+            <Setter Property="TextColor" Value="#fff" />
+            <Setter Property="FontAttributes" Value="Bold" />
+        </Style>
+    </ContentPage.Resources>
+    <StackLayout Margin="30" Spacing="10">
+        <Button Text="Importuj do bazy" Clicked="ImportFromFile" Style="{StaticResource buttonType2}"/>
+        <Button Text="Przeglądaj bazę" Clicked="NavigateToBrowse" Style="{StaticResource buttonType1}"/>
+        <ActivityIndicator x:Name="activity" IsRunning="false"/>
+    </StackLayout>
+</ContentPage>
